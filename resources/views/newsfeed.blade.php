@@ -37,6 +37,9 @@
         <link rel="stylesheet" href="{{ URL::to('css/animate.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ URL::to('css/style.css') }}" type="text/css">
 
+        <!-- Js libraries -->
+        <script src="{{ URL::to('js/bootstrap-typeahead.min.js') }}"></script>
+
         <!-- Mobi assets -->
         <link rel="stylesheet" href="{{ URL::to('assets/web/assets/mobirise-icons/mobirise-icons.css') }}">
         <link rel="stylesheet" href="{{ URL::to('assets/tether/tether.min.css') }}">
