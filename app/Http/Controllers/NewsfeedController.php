@@ -11,4 +11,12 @@ class NewsfeedController extends Controller
     		'avatar_hash' => '7f71469004f56b62e6753b94abc46469'
     	));
     }
+
+    public function showPosts() {
+    	return view('posts');
+    }
+
+    public function newThread() {
+    	return true;
+    }
 }

@@ -1,58 +1,3 @@
-{{-- <div class="row m-0 mb-3 box-shadow-bottom">
-  <div class="card w-100">
-    <h6 class="card-header dtitle p-2">General informations
-    <i class="fa fa-pencil-square-o env_edit pull-right" aria-hidden="true" data-toggle="modal" data-target="#simplemde"></i>
-    </h6>
-      <div class="card-body p-3">
-        <p class="card-text text-justify">
-          {!! $faq !!}
-        </p>
-      </div>
-  </div>
-</div> --}}
-
-<div class="border border-warning rounded alert alert-light alert-dismissible fade show box-shadow-bottom border-secondary" role="alert">
-    <div class="row">
-      <img src="{{ URL::to('img/language.svg') }}" class="ml-3" height="70" alt="Alert!">
-      <div class="right ml-4 text-primary">
-        <strong>Hey there!</strong>
-        <br>Please keep in mind that we are not tolerate any profanities, obscene, indecent behavior in the post sessions!
-        <br>Thank you for your understanding!
-      </div>
-    </div>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true" class="text-primary">&times;</span>
-  </button>
-</div>
-
-{{-- THREADS + COMMENTS--}}
-<div class="container-fluid mb-5">
-  <div class="row">
-    <div class="col-md-3 px-0">
-      <div class="border card w-100">
-        <h3 class="card-header dtitle p-2">Threads</h3>
-        <div class="card-body p-3">
-          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Project administration</a>
-            <a class="nav-link" id="v-pills-mentoring-tab" data-toggle="pill" href="#v-pills-mentoring" role="tab" aria-controls="v-pills-mentoring" aria-selected="false">Mentoring</a>
-            <a class="nav-link" id="v-pills-investment-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-investment" aria-selected="false">Investment informations</a>
-          </div>
-        </div>
-        <div class="card-footer p-3">
-          <span class="rt-badge badge badge-env" data-toggle="tooltip" data-placement="top" title="Admin panel"><i class="fa fa-exclamation-triangle"></i></span>
-          <div class="input-group input-group-sm">
-            <input name="cotributors" class="form-control" placeholder="Open new thread" aria-label="Open new theread" aria-describedby="btnGroupAddon3" type="text">
-            <div class="input-group-append">
-              <button class="env_link_grey env_point input-group-text env_border_rslim" id="btnGroupAddon3" type="submit">
-                +
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-9 pr-0">
       <div class="tab-content" id="v-pills-tabContent">
 
         {{-- pane --}}
@@ -177,7 +122,3 @@
         {{-- /pane --}}
 
       </div>
-
-    </div>
-  </div>
-</div>

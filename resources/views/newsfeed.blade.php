@@ -1,3 +1,6 @@
+<?php
+    use App\Utils;
+?>
 <!doctype html>
 <html>
     <head>
@@ -9,10 +12,10 @@
 
         {{-- Link section --}}
         <base href="{{ URL::to('/') }}">
-        <link rel="icon" href="{{ URL::to('img/favicon_img.jpg') }}">
+        <link rel="icon" href="{{ URL::to('img/language.svg') }}">
 
         {{-- Title --}}
-        <title>Envienta Platform</title>
+        <title>Envienta Threads</title>
 
         <!-- CSS - CDN's -->
         <link href="https://fonts.googleapis.com/css?family=Armata|Days+One" rel="stylesheet">
@@ -38,7 +41,7 @@
         <link rel="stylesheet" href="{{ URL::to('css/style.css') }}" type="text/css">
 
         <!-- Js libraries -->
-        <script src="{{ URL::to('js/bootstrap-typeahead.min.js') }}"></script>
+        {{--<script src="{{ URL::to('js/bootstrap-typeahead.min.js') }}"></script>--}}
 
         <!-- Mobi assets -->
         <link rel="stylesheet" href="{{ URL::to('assets/web/assets/mobirise-icons/mobirise-icons.css') }}">
@@ -56,8 +59,12 @@
 
     <body>
         <div>
+            <?php $EXTRAJS = ""; global $EXTRAJS; ?>
 
-	@include('post')
+            @include('skeleton')
+
+            <!-- extrajs -->
+            <?php echo $EXTRAJS; ?>
 
         </div>
 
