@@ -2,11 +2,12 @@
   <h3 class="card-header dtitle p-2">Threads</h3>
   <div class="card-body p-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Project administration</a>
-      <a class="nav-link" id="v-pills-mentoring-tab" data-toggle="pill" href="#v-pills-mentoring" role="tab" aria-controls="v-pills-mentoring" aria-selected="false">Mentoring</a>
-      <a class="nav-link" id="v-pills-investment-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-investment" aria-selected="false">Investment informations</a>
+      
+      @include('threadlist')
+
     </div>
   </div>
+  {{--@if(Auth::user() && $project->owner == Auth::user()->id)--}}
   <div class="card-footer p-3">
     <span class="rt-badge badge badge-env" data-toggle="tooltip" data-placement="top" title="Admin panel"><i class="fa fa-exclamation-triangle"></i></span>
     <div class="input-group input-group-sm">
@@ -18,6 +19,7 @@
       </div>
     </div>
   </div>
+  {{--@endif--}}
 </div>
 
 @extrajs
@@ -39,11 +41,10 @@ $(function () {
           type: 'POST',
           data: {'newThreadName': $('#newThreadName').val()},
           complete: function(data) {
+            console.log("complete: ");
+            console.log(data);
             //$('#posts').load('thread/'+data);
             $("#newThreadName").val('');
-          },
-          alwasy: function(data) {
-            console.log(data);
           },
           headers: {
               'X-CSRF-TOKEN': '{{ csrf_token() }}'

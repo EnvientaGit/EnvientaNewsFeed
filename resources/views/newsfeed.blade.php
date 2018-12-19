@@ -1,5 +1,8 @@
 <?php
     use App\Utils;
+    use App\User;
+    use App\Thread;
+    use App\Post;
 ?>
 <!doctype html>
 <html>
@@ -12,7 +15,7 @@
 
         {{-- Link section --}}
         <base href="{{ URL::to('/') }}">
-        <link rel="icon" href="{{ URL::to('img/language.svg') }}">
+        <link rel="icon" href="{{ URL::to('img/favicon.png') }}">
 
         {{-- Title --}}
         <title>Envienta Threads</title>

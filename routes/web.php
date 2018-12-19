@@ -13,4 +13,6 @@
 
 Route::get('/', 'NewsfeedController@show');
 
+Route::name('threads')->get('/threads', 'NewsfeedController@listThreads');
+Route::name('thread')->get('/thread/{slug}', 'NewsfeedController@getThread');
 Route::name('new_thread')->post('/thread/add', 'NewsfeedController@newThread');
