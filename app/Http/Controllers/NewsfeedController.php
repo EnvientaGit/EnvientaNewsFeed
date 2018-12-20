@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\DB;
 class NewsfeedController extends Controller
 {
     public function show() {
+        $threads = DB::table('projects')->where('project_id', '=', 1)->orderBy('title');
     	return view('newsfeed', array(
-    		'avatar_hash' => '7f71469004f56b62e6753b94abc46469'
+    		'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
+            'threads' => $threads
     	));
     }
 
