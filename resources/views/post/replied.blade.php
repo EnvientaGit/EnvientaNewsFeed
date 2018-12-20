@@ -51,7 +51,7 @@
 
 {{-- Write_reply --}}
 <div id="show_write_reply" class="card-footer grady pb-1" style="display: none;">
-  @include('50_project.52_newsfeed.write_reply')
+  @include('post.write_reply')
 </div>
 
 <script>

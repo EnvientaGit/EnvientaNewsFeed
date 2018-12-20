@@ -7,6 +7,7 @@
 
     </div>
   </div>
+  {{-- todo: only project owners are allowed to make new thread --}}
   {{--@if(Auth::user() && $project->owner == Auth::user()->id)--}}
   <div class="card-footer p-3">
     <span class="rt-badge badge badge-env" data-toggle="tooltip" data-placement="top" title="Admin panel"><i class="fa fa-exclamation-triangle"></i></span>
@@ -25,6 +26,9 @@
 @extrajs
 <script type="text/javascript">
 $(function () {
+
+  // ******************************************************************
+  // THREADS - thread names has to contain 3 or more characters
   $("#newThreadName").keyup(function(){
     if($(this).val().length>3 && $(this).val().replace(/ /g, '') != '') {
       $("#btnAddNewThread").prop("disabled", false);
@@ -33,6 +37,25 @@ $(function () {
     }
   });
 
+  // THREAD LIST LINKS
+  $(".threadList").on('click', '.thread-link', function(e){
+    e.preventDefault();
+    $(".threadList a").removeClass("active");
+    $.ajax({
+      url: $(this).attr("href"),
+      type: 'GET',
+      complete: function(data) {
+        $("#postsContainer").html(data.responseText);
+      },
+      headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+      }
+    });
+  });
+  $(".threadList a:first-of-type").addClass("active");
+
+  // NEW THREAD
+  // todo: only project owners are allowed to make new thread
   {{--@if(Auth::user() && $project->owner == Auth::user()->id)--}}
 
     $("#btnAddNewThread").click(function() {
@@ -54,6 +77,48 @@ $(function () {
     });
 
   {{--@endif--}}
+
+  
+  // ******************************************************************
+  // POSTS
+  $('[data-toggle="tooltip"]').tooltip();
+  $('html').on('click', '.reveal_write_back', function(e){
+    $(this).text($(this).text() == 'Reply' ? 'Cancel' : 'Reply');
+    $('#show_write_back').slideToggle("fast");
+  });
+
+  // NEW POST
+  // todo: check if authenticated user and member of the project
+  {{--@if(Auth::user() && $project->owner == Auth::user()->id)--}}
+
+    $('html').on('click', '.btnAddNewComment', function() {
+      var textarea = $(this).closest('.newCommentContainer').find('textarea.newPostContent');
+      var newPostContent = textarea.val();
+      var newPostThread = $(this).attr("rel");
+      
+      $.ajax({
+        url: '/post/add/',
+        type: 'POST',
+        data: {
+          'newPostContent': newPostContent,
+          'newPostThread': newPostThread
+        },
+        complete: function(data) {
+          if(data.statusText=="OK") {
+            textarea.val('');
+            $("#posts").append(data.responseText);
+            $('#emptyThread').remove();
+          }
+        },
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+      });
+
+    });
+
+  {{--@endif--}}
+
 
 });
 </script>

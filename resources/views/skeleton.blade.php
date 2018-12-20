@@ -25,7 +25,7 @@
     <div class="col-md-9 pr-0">
 
 
-      @include('posts')
+      @include('postscontainer')
 
 
     </div>

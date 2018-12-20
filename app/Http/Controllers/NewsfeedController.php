@@ -10,27 +10,31 @@ use Illuminate\Support\Facades\DB;
 class NewsfeedController extends Controller
 {
     public function show() {
+        // todo: need to get the real project_id from platform
+        $thread = DB::table('threads')->where('project_id', '=', 1)->orderBy('id')->first();
+        $posts = DB::table('posts')->where('thread_id', '=', $thread->id)->orderBy('id')->get();
         $threads = DB::table('threads')->where('project_id', '=', 1)->orderBy('title')->get();
     	return view('newsfeed', array(
     		'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
-            'threads' => $threads
+            'threads' => $threads,
+            'thread' => $thread,
+            'posts' => $posts,
     	));
     }
 
     public function getThread(Request $request, $threadid) {
-        $ret = false;
         if($threadid) {
-            $thread = DB::table('threads')->where('id', '=', $threadid)->get();
+            $thread = DB::table('threads')->where('id', '=', $threadid)->first();
             $posts = DB::table('posts')->where('thread_id', '=', $threadid)->orderBy('id')->get();
-            var_dump($thread, $posts);
-            return view('posts', array(
+            //var_dump($thread, $posts);
+            return view('postscontainer', array(
                 'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
                 'thread' => $thread,
                 'posts' => $posts,
             ));
+        } else {
+            return false;
         }
-        //$ret = 'fnc:getThread';
-        //return $ret;
     }
 
     public function newThread(Request $request) {
@@ -49,6 +53,29 @@ class NewsfeedController extends Controller
     	return view('threadlink', array(
             'threadId' => $newThreadId,
             'threadTitle' => $newThreadTitle,
+        ));
+    }
+
+
+
+    public function newPost(Request $request) {
+        $post = new Post;
+        if($request->has('newPostContent') && $request->has('newPostThread')) {
+            
+            // todo: need to get the real owner from platform
+            $post->owner = 1;
+
+            $post->thread_id = $request->input('newPostThread');
+            $post->content = $request->input('newPostContent');
+            $post->save();
+            $newPostId = $post->id;
+            $newPostContent = $post->content;
+        }
+        return view('post.single_post', array(
+            'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
+            'id' => $newPostId,
+            'content' => $newPostContent,
+            'post' => $post,
         ));
     }
 }
