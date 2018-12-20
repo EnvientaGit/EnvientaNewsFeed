@@ -17,10 +17,17 @@
         </a>
       </div>
       <div>
-        <textarea class="newPostContent form-control" placeholder="What's on your mind?"></textarea>
+        <textarea class="newPostContent form-control" placeholder="What's on your mind? - Send with Ctrl/Command + Enter"></textarea>
       </div>
       <div class="ml-3">
-        <button type="button" class="btnAddNewComment btn btn-light border btn-sm" style="margin-right: -0.3em;" rel="{{ $thread->id }}">Post</button>
+        <button type="button" class="btnAddNewComment btn btn-light border btn-sm" style="margin-right: -0.3em;" @if ($post) data-replyto="{{ $post->id }}" @endif>
+          @if ($post)
+            Reply
+          @else
+            Post
+          @endif
+        </button>
+        <br />
       </div>
     </div>
   </div>

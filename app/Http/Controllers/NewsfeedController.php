@@ -34,7 +34,7 @@ class NewsfeedController extends Controller
             $thread = DB::table('threads')->where('id', '=', $threadid)->first();
             $posts = DB::table('posts')->where('thread_id', '=', $threadid)->orderBy('id')->get();
             //var_dump($thread, $posts);
-            return view('postscontainer', array(
+            return view('post.postscontainer', array(
                 'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
                 'thread' => $thread,
                 'posts' => $posts,
@@ -58,7 +58,7 @@ class NewsfeedController extends Controller
             $newThreadId = $thread->id;
             $newThreadTitle = $thread->title;
         }
-    	return view('threadlink', array(
+    	return view('thread.threadlink', array(
             'threadId' => $newThreadId,
             'threadTitle' => $newThreadTitle,
         ));
@@ -69,21 +69,64 @@ class NewsfeedController extends Controller
     public function newPost(Request $request) {
         $post = new Post;
         if($request->has('newPostContent') && $request->has('newPostThread')) {
-            
+
             // todo: need to get the real owner from platform
             $post->owner = 1;
 
+            $likes = '[]';
+            $replyTo = $request->input('replyTo');
+            if(!$replyTo) {
+                $replyTo = 0;
+            }
+            $post->replyto = $replyTo;
             $post->thread_id = $request->input('newPostThread');
             $post->content = $request->input('newPostContent');
+            $post->like_user_id = $likes;
             $post->save();
             $newPostId = $post->id;
             $newPostContent = $post->content;
+
+            return view('post.single_post', array(
+                'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
+                'id' => $newPostId,
+                'replyto' => $replyTo,
+                'content' => $newPostContent,
+                'like_user_id' => $likes,
+                'post' => $post,
+            ));
         }
-        return view('post.single_post', array(
-            'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
-            'id' => $newPostId,
-            'content' => $newPostContent,
-            'post' => $post,
-        ));
     }
+
+    public function likePost(Request $request) {
+        $ret = 0;
+        if($request->has('postId')) {
+            
+            // todo: need to get the real owner from platform
+            $user_id = mt_rand(1,1000);
+
+            $post = DB::table('posts')->where('id', '=', $request->input('postId'))->first();
+            $likes = json_decode($post->like_user_id, true);
+            if(is_array($likes)) {
+                if(in_array($user_id, $likes)) {
+                    $ret = 0;
+                } else {
+                    array_push($likes, $user_id);
+                    $ret = 1;
+                }
+            } else {
+                $likes = array($user_id);
+                $ret = 1;
+            }
+            
+            //$post->like_user_id = json_encode($likes);
+            //$post->save();
+            $post = DB::table('posts')->where('id', '=', $request->input('postId'))->update(array('like_user_id'=>json_encode($likes)));
+            
+        }
+        return $ret;
+    }
+
+
+
+
 }

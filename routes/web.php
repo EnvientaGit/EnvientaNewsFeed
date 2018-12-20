@@ -17,3 +17,4 @@ Route::name('thread')->get('/thread/{threadid}', 'NewsfeedController@getThread')
 Route::name('new_thread')->post('/thread/add', 'NewsfeedController@newThread');
 
 Route::name('new_post')->post('/post/add', 'NewsfeedController@newPost');
+Route::name('like_post')->post('/post/like', 'NewsfeedController@likePost');

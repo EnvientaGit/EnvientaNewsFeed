@@ -18,13 +18,13 @@
   <div class="row">
     <div class="col-md-3 px-0">
 
-      @include('threads')
+      @include('thread.threads')
 
     </div>
 
     <div class="col-md-9 pr-0">
 
-      @include('postscontainer')
+      @include('post.postscontainer')
 
     </div>
   </div>

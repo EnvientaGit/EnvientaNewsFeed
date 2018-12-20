@@ -449,6 +449,19 @@ textarea.form-control{
     @-ms-keyframes _bpulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
     @keyframes _bpulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
 
+  ._bpulse20 {
+    box-shadow: 0 0 0 0 rgb(0, 123, 255);
+    cursor: pointer;
+    -webkit-animation: _bpulse20 1.25s 4 cubic-bezier(0.33, 0, 0, 1);
+    -moz-animation: _bpulse20 1.25s 4 cubic-bezier(0.33, 0, 0, 1);
+    -ms-animation: _bpulse20 1.25s 4 cubic-bezier(0.33, 0, 0, 1);
+    animation: _bpulse20 1.25s 4 cubic-bezier(0.33, 0, 0, 1);
+  }
+    @-webkit-keyframes _bpulse20 {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+    @-moz-keyframes _bpulse20 {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+    @-ms-keyframes _bpulse20 {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+    @keyframes _bpulse20 {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+
 
 /* Shop page Settings */
 ._scroll{

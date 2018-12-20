@@ -2,7 +2,9 @@
 
   @foreach ($posts as $post)
 
-    @include('post.single_post')
+    @include('post.single_post', array(
+		'post' => $post,
+	))
 
   @endforeach
 

@@ -4,7 +4,7 @@
 
 	@foreach ($threads as $t)
 
-		@include('threadlink', array(
+		@include('thread.threadlink', array(
 			'threadId' => $t->id,
 			'threadTitle' => $t->title,
 		))
