@@ -68,6 +68,7 @@ $(function () {
               $(".threadList").append(data.responseText);
               $("#newThreadName").val('');
               $(".threadList a:last-of-type").trigger("click");
+              $("#noThreads").remove();
             }
           },
           headers: {

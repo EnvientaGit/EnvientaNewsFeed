@@ -24,9 +24,7 @@
 
     <div class="col-md-9 pr-0">
 
-
       @include('postscontainer')
-
 
     </div>
   </div>

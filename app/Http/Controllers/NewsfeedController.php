@@ -11,15 +11,22 @@ class NewsfeedController extends Controller
 {
     public function show() {
         // todo: need to get the real project_id from platform
-        $thread = DB::table('threads')->where('project_id', '=', 1)->orderBy('id')->first();
-        $posts = DB::table('posts')->where('thread_id', '=', $thread->id)->orderBy('id')->get();
-        $threads = DB::table('threads')->where('project_id', '=', 1)->orderBy('title')->get();
-    	return view('newsfeed', array(
-    		'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
+        $project_id = 1;
+        $thread = DB::table('threads')->where('project_id', '=', $project_id)->orderBy('id')->first();
+        if(!$thread) {
+            $thread = NULL;
+            $posts = NULL;
+            $threads = NULL;
+        } else {
+            $posts = DB::table('posts')->where('thread_id', '=', $thread->id)->orderBy('id')->get();
+            $threads = DB::table('threads')->where('project_id', '=', $project_id)->orderBy('title')->get();
+        }
+        return view('newsfeed', array(
+            'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
             'threads' => $threads,
             'thread' => $thread,
             'posts' => $posts,
-    	));
+        ));
     }
 
     public function getThread(Request $request, $threadid) {
@@ -42,8 +49,9 @@ class NewsfeedController extends Controller
         if($request->has('newThreadName')) {
             
             // todo: need to get the real owner and project_id from platform
+            $project_id = 1;
             $thread->owner = 1;
-            $thread->project_id = 1;
+            $thread->project_id = $project_id;
 
             $thread->title = $request->input('newThreadName');
             $thread->save();
