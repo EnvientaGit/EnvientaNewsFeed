@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class NewsfeedController extends Controller
 {
     public function show() {
-        $threads = DB::table('projects')->where('project_id', '=', 1)->orderBy('title');
+        $threads = DB::table('threads')->where('project_id', '=', 1)->orderBy('title');
     	return view('newsfeed', array(
     		'avatar_hash' => '7f71469004f56b62e6753b94abc46469',
             'threads' => $threads
@@ -23,7 +23,7 @@ class NewsfeedController extends Controller
     public function listThreads() {
         // todo: update actual project_id
         //$threads = Thread::where('project_id', '=', 1)->orderBy('title');
-        $threads = DB::table('projects')->where('project_id', '=', 1)->orderBy('title');
+        $threads = DB::table('threads')->where('project_id', '=', 1)->orderBy('title');
         return view('threadlist', array(
           'threads' => $threads
         ));
