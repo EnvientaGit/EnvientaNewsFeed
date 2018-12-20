@@ -1,0 +1,1 @@
+<a class="thread-link nav-link" id="v-pills-tab-{{ $threadId }}" data-toggle="pill" href="{{ URL::to('/') }}/thread/{{ $threadId }}" >{{ $threadTitle }}</a>

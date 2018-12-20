@@ -41,10 +41,11 @@ $(function () {
           type: 'POST',
           data: {'newThreadName': $('#newThreadName').val()},
           complete: function(data) {
-            console.log("complete: ");
-            console.log(data);
-            //$('#posts').load('thread/'+data);
-            $("#newThreadName").val('');
+            if(data.statusText=="OK") {
+              $(".threadList").append(data.responseText);
+              $("#newThreadName").val('');
+              $(".threadList a:last-of-type").trigger("click");
+            }
           },
           headers: {
               'X-CSRF-TOKEN': '{{ csrf_token() }}'

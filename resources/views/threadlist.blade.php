@@ -1,7 +1,32 @@
-<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Project administration</a>
-<a class="nav-link" id="v-pills-mentoring-tab" data-toggle="pill" href="#v-pills-mentoring" role="tab" aria-controls="v-pills-mentoring" aria-selected="false">Mentoring</a>
-<a class="nav-link" id="v-pills-investment-tab" data-toggle="pill" href="#v-pills-investment" role="tab" aria-controls="v-pills-investment" aria-selected="false">Investment informations</a>
+<div class="threadList">
 
 @foreach ($threads as $t)
-	<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">{{ $t->title }}</a>
+	@include('threadlink', array(
+		'threadId' => $t->id,
+		'threadTitle' => $t->title,
+	))
 @endforeach
+
+</div>
+
+@extrajs
+<script type="text/javascript">
+$(function () {
+	$(".threadList").on('click', '.thread-link', function(e){
+		e.preventDefault();
+		$(".threadList a").removeClass("active");
+		$.ajax({
+			url: $(this).attr("href"),
+			type: 'GET',
+			complete: function(data) {
+				$("#posts").html(data.responseText);
+			},
+			headers: {
+				'X-CSRF-TOKEN': '{{ csrf_token() }}'
+			}
+		});
+	});
+	$(".threadList a:first-of-type").trigger("click");
+});
+</script>
+@endextrajs
